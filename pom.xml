@@ -6,7 +6,7 @@
 
     <groupId>ru.vzotov</groupId>
     <artifactId>cashreceipt-model</artifactId>
-    <version>1.51-SNAPSHOT</version>
+    <version>1.51</version>
     <name>Model of cash receipts</name>
 
     <build>
