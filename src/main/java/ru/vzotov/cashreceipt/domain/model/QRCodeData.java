@@ -40,9 +40,9 @@ public class QRCodeData implements ValueObject<QRCodeData> {
 
     private FiscalSign fiscalSign;
 
-    private Long operationType;
+    private CheckOperationType operationType;
 
-    public QRCodeData(QRCodeDateTime dateTime, Money totalSum, String fiscalDriveNumber, String fiscalDocumentNumber, FiscalSign fiscalSign, Long operationType) {
+    public QRCodeData(QRCodeDateTime dateTime, Money totalSum, String fiscalDriveNumber, String fiscalDocumentNumber, FiscalSign fiscalSign, CheckOperationType operationType) {
         Validate.notNull(dateTime);
         Validate.notNull(totalSum);
         Validate.notNull(fiscalDriveNumber);
@@ -95,7 +95,7 @@ public class QRCodeData implements ValueObject<QRCodeData> {
                     fiscalSign = new FiscalSign(partValue);
                     break;
                 case "n":
-                    operationType = Long.valueOf(partValue);
+                    operationType = CheckOperationType.of(Long.parseLong(partValue));
                     break;
 
                 default:
@@ -124,7 +124,7 @@ public class QRCodeData implements ValueObject<QRCodeData> {
         return fiscalSign;
     }
 
-    public Long operationType() {
+    public CheckOperationType operationType() {
         return operationType;
     }
 
@@ -159,7 +159,7 @@ public class QRCodeData implements ValueObject<QRCodeData> {
                         "&fn=" + fiscalDriveNumber +
                         "&i=" + fiscalDocumentNumber +
                         "&fp=" + fiscalSign.value() +
-                        "&n=" + operationType;
+                        "&n=" + operationType.numericValue();
     }
 
     protected QRCodeData() {

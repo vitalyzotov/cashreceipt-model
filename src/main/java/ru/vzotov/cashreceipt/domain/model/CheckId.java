@@ -43,7 +43,7 @@ public class CheckId implements ValueObject<CheckId> {
         this.value = value;
     }
 
-    public CheckId(LocalDateTime dateTime, Money sum, String fiscalDriveNumber, String fiscalDocumentNumber, FiscalSign fiscalSign, Long operationType) {
+    public CheckId(LocalDateTime dateTime, Money sum, String fiscalDriveNumber, String fiscalDocumentNumber, FiscalSign fiscalSign, CheckOperationType operationType) {
         Validate.notNull(dateTime);
         Validate.notNull(sum);
         Validate.notNull(fiscalDriveNumber);
@@ -61,7 +61,7 @@ public class CheckId implements ValueObject<CheckId> {
                 '_' + // 1 char
                 fiscalSign.value() + // 10 chars
                 '_' + // 1 char
-                operationType; // 1 char
+                operationType.numericValue(); // 1 char
     }
 
     public static CheckId ofQrCode(QRCodeData code) {

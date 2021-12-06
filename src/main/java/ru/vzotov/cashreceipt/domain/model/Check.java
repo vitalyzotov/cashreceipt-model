@@ -27,7 +27,7 @@ public class Check implements Entity<Check> {
      *
      * @see CheckOperationType
      */
-    private Long operationType; //TODO: use enum
+    private CheckOperationType operationType;
 
     /**
      * Serial number of cash receipt
@@ -44,7 +44,7 @@ public class Check implements Entity<Check> {
     private Products products;
     private PaymentInfo paymentInfo;
 
-    public Check(LocalDateTime dateTime, Long operationType, Long requestNumber, FiscalInfo fiscalInfo, Marketing marketing,
+    public Check(LocalDateTime dateTime, CheckOperationType operationType, Long requestNumber, FiscalInfo fiscalInfo, Marketing marketing,
                  ShiftInfo shiftInfo, RetailPlace retailPlace, Products products, PaymentInfo paymentInfo) {
         Validate.notNull(dateTime);
         Validate.notNull(operationType);
@@ -78,7 +78,7 @@ public class Check implements Entity<Check> {
         return dateTime;
     }
 
-    public Long operationType() {
+    public CheckOperationType operationType() {
         return operationType;
     }
 
