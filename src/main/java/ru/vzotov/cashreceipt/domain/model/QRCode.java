@@ -9,52 +9,52 @@ import java.time.OffsetDateTime;
 import java.util.Objects;
 
 @AggregateRoot
-public class CheckQRCode implements Entity<CheckQRCode> {
+public class QRCode implements Entity<QRCode> {
 
-    private CheckId checkId;
+    private ReceiptId receiptId;
 
-    private QRCodeData code;
+    private QRCodeData data;
 
-    private CheckState state;
+    private ReceiptState state;
 
     private Long loadingTryCount;
 
     private OffsetDateTime loadedAt;
 
-    public CheckQRCode(QRCodeData code) {
-        this(code, CheckState.NEW);
+    public QRCode(QRCodeData data) {
+        this(data, ReceiptState.NEW);
     }
 
-    public CheckQRCode(QRCodeData code, CheckState state) {
-        this(code, state, 0L, null);
+    public QRCode(QRCodeData data, ReceiptState state) {
+        this(data, state, 0L, null);
     }
 
-    public CheckQRCode(QRCodeData code, CheckState state, Long loadingTryCount, OffsetDateTime loadedAt) {
-        Validate.notNull(code);
+    public QRCode(QRCodeData data, ReceiptState state, Long loadingTryCount, OffsetDateTime loadedAt) {
+        Validate.notNull(data);
         Validate.notNull(state);
-        this.checkId = new CheckId(
-                code.dateTime().value(),
-                code.totalSum(),
-                code.fiscalDriveNumber(),
-                code.fiscalDocumentNumber(),
-                code.fiscalSign(),
-                code.operationType()
+        this.receiptId = new ReceiptId(
+                data.dateTime().value(),
+                data.totalSum(),
+                data.fiscalDriveNumber(),
+                data.fiscalDocumentNumber(),
+                data.fiscalSign(),
+                data.operationType()
         );
-        this.code = code;
+        this.data = data;
         this.state = state;
         this.loadingTryCount = loadingTryCount;
         this.loadedAt = loadedAt;
     }
 
-    public CheckId checkId() {
-        return checkId;
+    public ReceiptId receiptId() {
+        return receiptId;
     }
 
     public QRCodeData code() {
-        return code;
+        return data;
     }
 
-    public CheckState state() {
+    public ReceiptState state() {
         return state;
     }
 
@@ -75,22 +75,22 @@ public class CheckQRCode implements Entity<CheckQRCode> {
     }
 
     public void markLoaded() {
-        this.state = CheckState.LOADED;
+        this.state = ReceiptState.LOADED;
     }
 
     public boolean isLoaded() {
-        return CheckState.LOADED.equals(this.state);
+        return ReceiptState.LOADED.equals(this.state);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(checkId);
+        return Objects.hash(receiptId);
     }
 
     @Override
-    public boolean sameIdentityAs(CheckQRCode other) {
+    public boolean sameIdentityAs(QRCode other) {
         return other != null && new EqualsBuilder()
-                .append(checkId, other.checkId)
+                .append(receiptId, other.receiptId)
                 .isEquals();
     }
 
@@ -98,23 +98,23 @@ public class CheckQRCode implements Entity<CheckQRCode> {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        CheckQRCode qrCode = (CheckQRCode) o;
-        return Objects.equals(checkId, qrCode.checkId);
+        QRCode qrCode = (QRCode) o;
+        return Objects.equals(receiptId, qrCode.receiptId);
     }
 
     @Override
     public String toString() {
-        return "CheckQRCode{" +
+        return "QRCode{" +
                 "id(surrogate)=" + id +
-                ", id=" + checkId +
-                ", code=" + code +
+                ", id=" + receiptId +
+                ", code=" + data +
                 ", state=" + state +
                 ", loadingTryCount=" + loadingTryCount +
                 ", loadedAt" + loadedAt +
                 '}';
     }
 
-    protected CheckQRCode() {
+    protected QRCode() {
         // for Hibernate
     }
 

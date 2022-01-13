@@ -13,20 +13,20 @@ import java.util.Collections;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.catchThrowable;
 
-public class CheckTest {
+public class ReceiptTest {
     @Test
     public void testConstructor() {
         assertThat(catchThrowable(() -> {
-            new Check(null, null, null, null, null, null, null, null, null);
+            new Receipt(null, null, null, null, null, null, null, null, null);
         })).as("Should not accept null arguments")
                 .isInstanceOf(Exception.class);
     }
 
     @Test
     public void assignItemToCategory() {
-        Check check = new Check(
+        Receipt receipt = new Receipt(
                 LocalDateTime.of(2018, Month.JANUARY, 23, 0, 0, 0, 0),
-                CheckOperationType.INCOME,
+                ReceiptOperationType.INCOME,
                 1L,
                 new FiscalInfo("0001107425024311", new FiscalSign(2334756689L), "21068", "8710000100312991"),
                 Marketing.emptyMarketing(),
@@ -43,8 +43,8 @@ public class CheckTest {
                 new PaymentInfo(Money.kopecks(0), Money.kopecks(40))
         );
 
-        assertThat(check.products().items().get(0).category()).isNull();
-        check.assignCategoryToItem(0, new PurchaseCategory(PurchaseCategoryId.nextId(), "Категория 1"));
-        assertThat(check.products().items().get(0).category().name()).isEqualTo("Категория 1");
+        assertThat(receipt.products().items().get(0).category()).isNull();
+        receipt.assignCategoryToItem(0, new PurchaseCategory(PurchaseCategoryId.nextId(), "Категория 1"));
+        assertThat(receipt.products().items().get(0).category().name()).isEqualTo("Категория 1");
     }
 }

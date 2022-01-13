@@ -21,7 +21,7 @@ public class QRCodeDataTest {
         QRCodeData qr = new QRCodeData("t=20150720T1638&s=9999999.00&fn=000110000105&i=12345678&fp=123456&n=2");
         assertThat(qr.fiscalDocumentNumber()).isEqualTo("12345678");
         assertThat(qr.fiscalDriveNumber()).isEqualTo("000110000105");
-        assertThat(qr.operationType()).isEqualTo(CheckOperationType.INCOME_RETURN);
+        assertThat(qr.operationType()).isEqualTo(ReceiptOperationType.INCOME_RETURN);
         assertThat(qr.fiscalSign()).isEqualTo(new FiscalSign(123456));
         assertThat(qr.totalSum()).isEqualTo(Money.kopecks(999999900L));
         assertThat(qr.dateTime().value()).isEqualTo(LocalDateTime.of(2015, Month.JULY, 20, 16, 38, 0, 0));

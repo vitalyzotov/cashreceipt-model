@@ -20,7 +20,7 @@ import static java.time.temporal.ChronoField.YEAR;
 /**
  * Identifier of cash receipt
  */
-public class CheckId implements ValueObject<CheckId> {
+public class ReceiptId implements ValueObject<ReceiptId> {
 
     private static final DateTimeFormatter ID_DATETIME_FORMAT = new DateTimeFormatterBuilder()
             .parseCaseInsensitive()
@@ -37,13 +37,13 @@ public class CheckId implements ValueObject<CheckId> {
      */
     private String value;
 
-    public CheckId(String value) {
+    public ReceiptId(String value) {
         Validate.notNull(value);
 
         this.value = value;
     }
 
-    public CheckId(LocalDateTime dateTime, Money sum, String fiscalDriveNumber, String fiscalDocumentNumber, FiscalSign fiscalSign, CheckOperationType operationType) {
+    public ReceiptId(LocalDateTime dateTime, Money sum, String fiscalDriveNumber, String fiscalDocumentNumber, FiscalSign fiscalSign, ReceiptOperationType operationType) {
         Validate.notNull(dateTime);
         Validate.notNull(sum);
         Validate.notNull(fiscalDriveNumber);
@@ -64,8 +64,8 @@ public class CheckId implements ValueObject<CheckId> {
                 operationType.numericValue(); // 1 char
     }
 
-    public static CheckId ofQrCode(QRCodeData code) {
-        return new CheckId(code.dateTime().value(), code.totalSum(), code.fiscalDriveNumber(), code.fiscalDocumentNumber(), code.fiscalSign(), code.operationType());
+    public static ReceiptId ofQrCode(QRCodeData code) {
+        return new ReceiptId(code.dateTime().value(), code.totalSum(), code.fiscalDriveNumber(), code.fiscalDocumentNumber(), code.fiscalSign(), code.operationType());
     }
 
     public String value() {
@@ -73,7 +73,7 @@ public class CheckId implements ValueObject<CheckId> {
     }
 
     @Override
-    public boolean sameValueAs(CheckId that) {
+    public boolean sameValueAs(ReceiptId that) {
         return that != null && Objects.equals(value, that.value);
     }
 
@@ -81,7 +81,7 @@ public class CheckId implements ValueObject<CheckId> {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        CheckId that = (CheckId) o;
+        ReceiptId that = (ReceiptId) o;
         return sameValueAs(that);
     }
 
@@ -95,7 +95,7 @@ public class CheckId implements ValueObject<CheckId> {
         return value;
     }
 
-    protected CheckId() {
+    protected ReceiptId() {
         //for Hibernate
     }
 }

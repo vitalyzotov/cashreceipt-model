@@ -16,18 +16,18 @@ import java.util.stream.Collectors;
  * расчетов с использованием электронных средств платежа" от 22.05.2003 N 54-ФЗ
  */
 @AggregateRoot
-public class Check implements Entity<Check> {
+public class Receipt implements Entity<Receipt> {
 
-    private CheckId checkId;
+    private ReceiptId receiptId;
     private LocalDateTime dateTime; //1528916460
 
     /**
      * Вероятно это признак расчета (приход, возврат)
      * Пример значения: 1
      *
-     * @see CheckOperationType
+     * @see ReceiptOperationType
      */
-    private CheckOperationType operationType;
+    private ReceiptOperationType operationType;
 
     /**
      * Serial number of cash receipt
@@ -44,8 +44,8 @@ public class Check implements Entity<Check> {
     private Products products;
     private PaymentInfo paymentInfo;
 
-    public Check(LocalDateTime dateTime, CheckOperationType operationType, Long requestNumber, FiscalInfo fiscalInfo, Marketing marketing,
-                 ShiftInfo shiftInfo, RetailPlace retailPlace, Products products, PaymentInfo paymentInfo) {
+    public Receipt(LocalDateTime dateTime, ReceiptOperationType operationType, Long requestNumber, FiscalInfo fiscalInfo, Marketing marketing,
+                   ShiftInfo shiftInfo, RetailPlace retailPlace, Products products, PaymentInfo paymentInfo) {
         Validate.notNull(dateTime);
         Validate.notNull(operationType);
         Validate.notNull(requestNumber);
@@ -56,7 +56,7 @@ public class Check implements Entity<Check> {
         Validate.notNull(products);
         Validate.notNull(paymentInfo);
 
-        this.checkId = new CheckId(dateTime, products.totalSum(),
+        this.receiptId = new ReceiptId(dateTime, products.totalSum(),
                 fiscalInfo.fiscalDriveNumber(), fiscalInfo.fiscalDocumentNumber(), fiscalInfo.fiscalSign(),
                 operationType);
         this.dateTime = dateTime;
@@ -70,15 +70,15 @@ public class Check implements Entity<Check> {
         this.paymentInfo = paymentInfo;
     }
 
-    public CheckId checkId() {
-        return checkId;
+    public ReceiptId receiptId() {
+        return receiptId;
     }
 
     public LocalDateTime dateTime() {
         return dateTime;
     }
 
-    public CheckOperationType operationType() {
+    public ReceiptOperationType operationType() {
         return operationType;
     }
 
@@ -125,17 +125,17 @@ public class Check implements Entity<Check> {
 
     @Override
     public String toString() {
-        return "Check{ id(surrogate)=" + id + ", id(real)=" + checkId + '}';
+        return "Receipt{ id(surrogate)=" + id + ", id(real)=" + receiptId + '}';
     }
 
     @Override
-    public boolean sameIdentityAs(Check other) {
+    public boolean sameIdentityAs(Receipt other) {
         return other != null && new EqualsBuilder()
-                .append(checkId, other.checkId)
+                .append(receiptId, other.receiptId)
                 .isEquals();
     }
 
-    protected Check() {
+    protected Receipt() {
         // for Hibernate
     }
 

@@ -7,14 +7,14 @@ import java.util.Objects;
 
 public class QRCodeCreatedEvent implements DomainEvent<QRCodeCreatedEvent> {
 
-    private final CheckId receiptId;
+    private final ReceiptId receiptId;
 
-    public QRCodeCreatedEvent(CheckId receiptId) {
+    public QRCodeCreatedEvent(ReceiptId receiptId) {
         Validate.notNull(receiptId);
         this.receiptId = receiptId;
     }
 
-    public CheckId receiptId() {
+    public ReceiptId receiptId() {
         return receiptId;
     }
 
