@@ -21,6 +21,7 @@
         <ddd.version>1.4</ddd.version>
         <money.version>1.5</money.version>
         <gov.model.version>1.6</gov.model.version>
+        <person.model.version>1.0-SNAPSHOT</person.model.version>
     </properties>
 
     <dependencies>
@@ -45,6 +46,13 @@
             <version>${money.version}</version>
         </dependency>
 
+        <dependency>
+            <groupId>ru.vzotov</groupId>
+            <artifactId>person-model</artifactId>
+            <version>${person.model.version}</version>
+        </dependency>
+
+        <!-- Commons -->
         <dependency>
             <!-- Package to support internationalization, containing ISO 3166-1 country code enum,
             ISO 639-1 language code enum, ISO 15924 script code enum, etc. -->
