@@ -3,6 +3,7 @@ package ru.vzotov.cashreceipt.domain.model;
 import org.apache.commons.lang.Validate;
 import ru.vzotov.ddd.shared.AggregateRoot;
 import ru.vzotov.ddd.shared.Entity;
+import ru.vzotov.person.domain.model.PersonId;
 
 import java.util.Objects;
 
@@ -11,23 +12,31 @@ public class PurchaseCategory implements Entity<PurchaseCategory> {
 
     private PurchaseCategoryId categoryId;
 
+    private PersonId owner;
+
     private String name;
 
     private PurchaseCategoryId parentId;
 
-    public PurchaseCategory(PurchaseCategoryId categoryId, String name) {
-        this(categoryId, name, null);
+    public PurchaseCategory(PurchaseCategoryId categoryId, PersonId owner, String name) {
+        this(categoryId, owner, name, null);
     }
 
-    public PurchaseCategory(PurchaseCategoryId categoryId, String name, PurchaseCategoryId parentId) {
+    public PurchaseCategory(PurchaseCategoryId categoryId, PersonId owner, String name, PurchaseCategoryId parentId) {
         Validate.notEmpty(name);
+        Validate.notNull(owner);
         this.categoryId = categoryId;
+        this.owner = owner;
         this.name = name;
         this.parentId = parentId;
     }
 
     public PurchaseCategoryId categoryId() {
         return categoryId;
+    }
+
+    public PersonId owner() {
+        return owner;
     }
 
     public PurchaseCategoryId parentId() {

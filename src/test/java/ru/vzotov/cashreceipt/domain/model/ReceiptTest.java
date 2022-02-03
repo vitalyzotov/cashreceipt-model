@@ -4,6 +4,7 @@ import org.junit.Test;
 import ru.vzotov.domain.model.Money;
 import ru.vzotov.fiscal.FiscalSign;
 import ru.vzotov.fiscal.Inn;
+import ru.vzotov.person.domain.model.PersonId;
 
 import java.time.LocalDateTime;
 import java.time.Month;
@@ -14,6 +15,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.catchThrowable;
 
 public class ReceiptTest {
+
+    private static final PersonId PERSON_ID = new PersonId("c483a33e-5e84-4d4c-84fe-4edcb5cc0fd2");
+
     @Test
     public void testConstructor() {
         assertThat(catchThrowable(() -> {
@@ -44,7 +48,7 @@ public class ReceiptTest {
         );
 
         assertThat(receipt.products().items().get(0).category()).isNull();
-        receipt.assignCategoryToItem(0, new PurchaseCategory(PurchaseCategoryId.nextId(), "Категория 1"));
+        receipt.assignCategoryToItem(0, new PurchaseCategory(PurchaseCategoryId.nextId(), PERSON_ID, "Категория 1"));
         assertThat(receipt.products().items().get(0).category().name()).isEqualTo("Категория 1");
     }
 }
