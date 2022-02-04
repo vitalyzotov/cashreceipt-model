@@ -21,7 +21,7 @@ public class ReceiptTest {
     @Test
     public void testConstructor() {
         assertThat(catchThrowable(() -> {
-            new Receipt(null, null, null, null, null, null, null, null, null);
+            new Receipt(null, null, null, null, null, null, null, null, null, null);
         })).as("Should not accept null arguments")
                 .isInstanceOf(Exception.class);
     }
@@ -29,6 +29,7 @@ public class ReceiptTest {
     @Test
     public void assignItemToCategory() {
         Receipt receipt = new Receipt(
+                PERSON_ID,
                 LocalDateTime.of(2018, Month.JANUARY, 23, 0, 0, 0, 0),
                 ReceiptOperationType.INCOME,
                 1L,

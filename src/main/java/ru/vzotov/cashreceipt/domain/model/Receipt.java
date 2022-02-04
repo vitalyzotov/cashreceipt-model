@@ -4,6 +4,8 @@ import org.apache.commons.lang.Validate;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import ru.vzotov.ddd.shared.AggregateRoot;
 import ru.vzotov.ddd.shared.Entity;
+import ru.vzotov.person.domain.model.Owned;
+import ru.vzotov.person.domain.model.PersonId;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -16,7 +18,7 @@ import java.util.stream.Collectors;
  * расчетов с использованием электронных средств платежа" от 22.05.2003 N 54-ФЗ
  */
 @AggregateRoot
-public class Receipt implements Entity<Receipt> {
+public class Receipt implements Entity<Receipt>, Owned {
 
     private ReceiptId receiptId;
     private LocalDateTime dateTime; //1528916460
@@ -43,9 +45,12 @@ public class Receipt implements Entity<Receipt> {
     private RetailPlace retailPlace;
     private Products products;
     private PaymentInfo paymentInfo;
+    private PersonId owner;
 
-    public Receipt(LocalDateTime dateTime, ReceiptOperationType operationType, Long requestNumber, FiscalInfo fiscalInfo, Marketing marketing,
+    public Receipt(PersonId owner, LocalDateTime dateTime, ReceiptOperationType operationType, Long requestNumber,
+                   FiscalInfo fiscalInfo, Marketing marketing,
                    ShiftInfo shiftInfo, RetailPlace retailPlace, Products products, PaymentInfo paymentInfo) {
+        Validate.notNull(owner);
         Validate.notNull(dateTime);
         Validate.notNull(operationType);
         Validate.notNull(requestNumber);
@@ -56,6 +61,7 @@ public class Receipt implements Entity<Receipt> {
         Validate.notNull(products);
         Validate.notNull(paymentInfo);
 
+        this.owner = owner;
         this.receiptId = new ReceiptId(dateTime, products.totalSum(),
                 fiscalInfo.fiscalDriveNumber(), fiscalInfo.fiscalDocumentNumber(), fiscalInfo.fiscalSign(),
                 operationType);
@@ -68,6 +74,11 @@ public class Receipt implements Entity<Receipt> {
         this.retailPlace = retailPlace;
         this.products = products;
         this.paymentInfo = paymentInfo;
+    }
+
+    @Override
+    public PersonId owner() {
+        return owner;
     }
 
     public ReceiptId receiptId() {

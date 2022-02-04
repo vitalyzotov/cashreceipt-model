@@ -4,13 +4,14 @@ import org.apache.commons.lang.Validate;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import ru.vzotov.ddd.shared.AggregateRoot;
 import ru.vzotov.ddd.shared.Entity;
+import ru.vzotov.person.domain.model.Owned;
 import ru.vzotov.person.domain.model.PersonId;
 
 import java.time.OffsetDateTime;
 import java.util.Objects;
 
 @AggregateRoot
-public class QRCode implements Entity<QRCode> {
+public class QRCode implements Entity<QRCode>, Owned {
 
     private ReceiptId receiptId;
 

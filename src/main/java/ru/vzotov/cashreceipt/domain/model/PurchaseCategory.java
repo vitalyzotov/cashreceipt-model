@@ -3,12 +3,13 @@ package ru.vzotov.cashreceipt.domain.model;
 import org.apache.commons.lang.Validate;
 import ru.vzotov.ddd.shared.AggregateRoot;
 import ru.vzotov.ddd.shared.Entity;
+import ru.vzotov.person.domain.model.Owned;
 import ru.vzotov.person.domain.model.PersonId;
 
 import java.util.Objects;
 
 @AggregateRoot
-public class PurchaseCategory implements Entity<PurchaseCategory> {
+public class PurchaseCategory implements Entity<PurchaseCategory>, Owned {
 
     private PurchaseCategoryId categoryId;
 
