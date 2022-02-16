@@ -21,7 +21,7 @@
         <ddd.version>1.4</ddd.version>
         <money.version>1.5</money.version>
         <gov.model.version>1.6</gov.model.version>
-        <person.model.version>1.0-SNAPSHOT</person.model.version>
+        <person.model.version>1.0</person.model.version>
     </properties>
 
     <dependencies>
