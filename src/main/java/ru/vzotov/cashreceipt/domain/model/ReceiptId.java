@@ -14,7 +14,6 @@ import static java.time.temporal.ChronoField.DAY_OF_MONTH;
 import static java.time.temporal.ChronoField.HOUR_OF_DAY;
 import static java.time.temporal.ChronoField.MINUTE_OF_HOUR;
 import static java.time.temporal.ChronoField.MONTH_OF_YEAR;
-import static java.time.temporal.ChronoField.SECOND_OF_MINUTE;
 import static java.time.temporal.ChronoField.YEAR;
 
 /**
@@ -29,7 +28,7 @@ public class ReceiptId implements ValueObject<ReceiptId> {
             .appendValue(DAY_OF_MONTH, 2)
             .appendValue(HOUR_OF_DAY, 2)
             .appendValue(MINUTE_OF_HOUR, 2)
-            .appendValue(SECOND_OF_MINUTE, 2)
+            //.appendValue(SECOND_OF_MINUTE, 2)
             .toFormatter();
 
     /**
