@@ -25,26 +25,20 @@ public class QRCode implements Entity<QRCode>, Owned {
 
     private PersonId owner;
 
-    public QRCode(QRCodeData data, PersonId owner) {
-        this(data, ReceiptState.NEW, owner);
+    public QRCode(ReceiptId receiptId, QRCodeData data, PersonId owner) {
+        this(receiptId, data, ReceiptState.NEW, owner);
     }
 
-    public QRCode(QRCodeData data, ReceiptState state, PersonId owner) {
-        this(data, state, 0L, null, owner);
+    public QRCode(ReceiptId receiptId, QRCodeData data, ReceiptState state, PersonId owner) {
+        this(receiptId, data, state, 0L, null, owner);
     }
 
-    public QRCode(QRCodeData data, ReceiptState state, Long loadingTryCount, OffsetDateTime loadedAt, PersonId owner) {
+    public QRCode(ReceiptId receiptId, QRCodeData data, ReceiptState state, Long loadingTryCount, OffsetDateTime loadedAt, PersonId owner) {
+        Validate.notNull(receiptId);
         Validate.notNull(data);
         Validate.notNull(state);
         Validate.notNull(owner);
-        this.receiptId = new ReceiptId(
-                data.dateTime().value(),
-                data.totalSum(),
-                data.fiscalDriveNumber(),
-                data.fiscalDocumentNumber(),
-                data.fiscalSign(),
-                data.operationType()
-        );
+        this.receiptId = receiptId;
         this.data = data;
         this.state = state;
         this.loadingTryCount = loadingTryCount;

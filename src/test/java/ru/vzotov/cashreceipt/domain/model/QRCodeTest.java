@@ -15,11 +15,12 @@ public class QRCodeTest {
                 .isInstanceOf(Exception.class);
 
         assertThat(catchThrowable(() -> {
-            new QRCode(null, null);
+            new QRCode(null, null, null);
         })).as("Should not accept null arguments")
                 .isInstanceOf(Exception.class);
 
         new QRCode(
+                new ReceiptId("id"),
                 new QRCodeData("t=20150720T1638&s=9999999.00&fn=000110000105&i=12345678&fp=123456&n=2"),
                 ReceiptState.LOADED,
                 PersonId.nextId()

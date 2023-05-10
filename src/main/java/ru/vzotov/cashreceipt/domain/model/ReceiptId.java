@@ -42,7 +42,7 @@ public class ReceiptId implements ValueObject<ReceiptId> {
         this.value = value;
     }
 
-    public ReceiptId(LocalDateTime dateTime, Money sum, String fiscalDriveNumber, String fiscalDocumentNumber, FiscalSign fiscalSign, ReceiptOperationType operationType) {
+    ReceiptId(LocalDateTime dateTime, Money sum, String fiscalDriveNumber, String fiscalDocumentNumber, FiscalSign fiscalSign, ReceiptOperationType operationType) {
         Validate.notNull(dateTime);
         Validate.notNull(sum);
         Validate.notNull(fiscalDriveNumber);
