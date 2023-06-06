@@ -1,17 +1,17 @@
 package ru.vzotov.cashreceipt.domain.model;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.catchThrowable;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 public class AddressTest {
     @Test
     public void testConstructor() {
-        assertThat(catchThrowable(() -> {
+        assertThatThrownBy(() -> {
             new Address(null);
-        })).as("Should not accept null arguments")
-                .isInstanceOf(IllegalArgumentException.class);
+        }).as("Should not accept null arguments")
+                .isInstanceOf(NullPointerException.class);
 
 
         Address address = new Address("address");

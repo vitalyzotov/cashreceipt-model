@@ -1,17 +1,17 @@
 package ru.vzotov.cashreceipt.domain.model;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import ru.vzotov.domain.model.Money;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.catchThrowable;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 public class PaymentInfoTest {
     @Test
     public void testConstructor() {
-        assertThat(catchThrowable(() -> {
+        assertThatThrownBy(() -> {
             new PaymentInfo(null, null);
-        })).as("Should not accept both null arguments")
+        }).as("Should not accept both null arguments")
                 .isInstanceOf(Exception.class);
 
         new PaymentInfo(Money.kopecks(0), null);

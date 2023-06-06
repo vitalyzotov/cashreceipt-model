@@ -1,24 +1,24 @@
 package ru.vzotov.cashreceipt.domain.model;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
 import java.time.Month;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.catchThrowable;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 public class QRCodeDateTimeTest {
     @Test
     public void testConstructor() {
-        assertThat(catchThrowable(() -> {
+        assertThatThrownBy(() -> {
             new QRCodeDateTime((String) null);
-        })).as("Should not accept null arguments")
+        }).as("Should not accept null arguments")
                 .isInstanceOf(Exception.class);
 
-        assertThat(catchThrowable(() -> {
+        assertThatThrownBy(() -> {
             new QRCodeDateTime((LocalDateTime) null);
-        })).as("Should not accept null arguments")
+        }).as("Should not accept null arguments")
                 .isInstanceOf(Exception.class);
 
         QRCodeDateTime fromString = new QRCodeDateTime("20180123T0821");

@@ -6,7 +6,7 @@ public enum ReceiptState implements ValueObject<ReceiptState> {
     NEW('N'),
     LOADED('L');
 
-    private char symbol;
+    private final char symbol;
 
     ReceiptState(char symbol) {
         this.symbol = symbol;
