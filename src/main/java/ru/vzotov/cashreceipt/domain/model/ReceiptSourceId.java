@@ -6,11 +6,11 @@ import ru.vzotov.ddd.shared.ValueObject;
 import java.util.Objects;
 import java.util.UUID;
 
-public class PurchaseCategoryId implements ValueObject<PurchaseCategoryId> {
+public class ReceiptSourceId implements ValueObject<ReceiptSourceId> {
 
     private String value;
 
-    public PurchaseCategoryId(String value) {
+    public ReceiptSourceId(String value) {
         Validate.notEmpty(value);
         this.value = value;
     }
@@ -19,12 +19,12 @@ public class PurchaseCategoryId implements ValueObject<PurchaseCategoryId> {
         return value;
     }
 
-    public static PurchaseCategoryId nextId() {
-        return new PurchaseCategoryId(UUID.randomUUID().toString());
+    public static ReceiptSourceId nextId() {
+        return new ReceiptSourceId(UUID.randomUUID().toString());
     }
 
     @Override
-    public boolean sameValueAs(PurchaseCategoryId that) {
+    public boolean sameValueAs(ReceiptSourceId that) {
         return that != null && Objects.equals(value, that.value);
     }
 
@@ -32,7 +32,7 @@ public class PurchaseCategoryId implements ValueObject<PurchaseCategoryId> {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        PurchaseCategoryId that = (PurchaseCategoryId) o;
+        ReceiptSourceId that = (ReceiptSourceId) o;
         return sameValueAs(that);
     }
 
@@ -46,7 +46,8 @@ public class PurchaseCategoryId implements ValueObject<PurchaseCategoryId> {
         return value;
     }
 
-    protected PurchaseCategoryId() {
-        // for Hibernate
+    protected ReceiptSourceId() {
+        // for ORM
     }
+
 }

@@ -1,6 +1,6 @@
 package ru.vzotov.cashreceipt.domain.model;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import ru.vzotov.domain.model.Money;
 import ru.vzotov.fiscal.FiscalSign;
 import ru.vzotov.fiscal.Inn;
@@ -12,7 +12,7 @@ import java.util.Arrays;
 import java.util.Collections;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.catchThrowable;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 public class ReceiptTest {
 
@@ -20,10 +20,8 @@ public class ReceiptTest {
 
     @Test
     public void testConstructor() {
-        assertThat(catchThrowable(() -> {
-            new Receipt(null, null, null, null, null, null, null, null, null, null);
-        })).as("Should not accept null arguments")
-                .isInstanceOf(Exception.class);
+        assertThatThrownBy(() -> new Receipt(null, null, null, null, null, null, null, null, null, null))
+                .as("Should not accept null arguments").isInstanceOf(Exception.class);
     }
 
     @Test

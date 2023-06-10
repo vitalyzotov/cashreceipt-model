@@ -1,14 +1,17 @@
 package ru.vzotov.cashreceipt.domain.model;
 
-import org.apache.commons.lang.Validate;
-import org.apache.commons.lang.builder.EqualsBuilder;
+import org.apache.commons.lang3.Validate;
+import org.apache.commons.lang3.builder.EqualsBuilder;
 import ru.vzotov.ddd.shared.AggregateRoot;
 import ru.vzotov.ddd.shared.Entity;
 import ru.vzotov.person.domain.model.Owned;
 import ru.vzotov.person.domain.model.PersonId;
 
 import java.time.OffsetDateTime;
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @AggregateRoot
 public class QRCode implements Entity<QRCode>, Owned {
@@ -22,6 +25,8 @@ public class QRCode implements Entity<QRCode>, Owned {
     private Long loadingTryCount;
 
     private OffsetDateTime loadedAt;
+
+    private Set<ReceiptSource> sources;
 
     private PersonId owner;
 
@@ -44,6 +49,7 @@ public class QRCode implements Entity<QRCode>, Owned {
         this.loadingTryCount = loadingTryCount;
         this.loadedAt = loadedAt;
         this.owner = owner;
+        this.sources = new HashSet<>(0);
     }
 
     public PersonId owner() {
@@ -70,6 +76,10 @@ public class QRCode implements Entity<QRCode>, Owned {
         return loadedAt;
     }
 
+    public Set<ReceiptSource> sources() {
+        return Collections.unmodifiableSet(sources);
+    }
+
     public void tryLoading() {
         if (loadingTryCount == null) {
             loadingTryCount = 0L;
@@ -84,6 +94,26 @@ public class QRCode implements Entity<QRCode>, Owned {
 
     public boolean isLoaded() {
         return ReceiptState.LOADED.equals(this.state);
+    }
+
+    /**
+     *
+     * @param source source to be added to this QR code
+     * @return {@code true} if this QR code did not already contain the specified source
+     */
+    public boolean addSource(ReceiptSource source) {
+        Validate.notNull(source);
+        return this.sources.add(source);
+    }
+
+    /**
+     *
+     * @param source source to be removed from this QR code, if present
+     * @return {@code true} if this QR code contained the specified source
+     */
+    public boolean removeSource(ReceiptSource source) {
+        Validate.notNull(source);
+        return this.sources.remove(source);
     }
 
     @Override

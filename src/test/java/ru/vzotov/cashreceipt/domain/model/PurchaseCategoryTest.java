@@ -1,10 +1,10 @@
 package ru.vzotov.cashreceipt.domain.model;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import ru.vzotov.person.domain.model.PersonId;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.catchThrowable;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 public class PurchaseCategoryTest {
 
@@ -12,10 +12,8 @@ public class PurchaseCategoryTest {
 
     @Test
     public void testConstructor() {
-        assertThat(catchThrowable(() -> {
-            new PurchaseCategory(null, null, null);
-        })).as("Should not accept null arguments")
-                .isInstanceOf(Exception.class);
+        assertThatThrownBy(() -> new PurchaseCategory(null, null, null))
+                .as("Should not accept null arguments").isInstanceOf(Exception.class);
 
         PurchaseCategory category = new PurchaseCategory(PurchaseCategoryId.nextId(), PERSON_ID, "Продукты");
         assertThat(category.name()).isEqualTo("Продукты");

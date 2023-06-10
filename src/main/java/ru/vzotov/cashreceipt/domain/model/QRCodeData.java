@@ -1,6 +1,6 @@
 package ru.vzotov.cashreceipt.domain.model;
 
-import org.apache.commons.lang.Validate;
+import org.apache.commons.lang3.Validate;
 import ru.vzotov.ddd.shared.ValueObject;
 import ru.vzotov.domain.model.Money;
 import ru.vzotov.fiscal.FiscalSign;
@@ -68,38 +68,25 @@ public class QRCodeData implements ValueObject<QRCodeData> {
             final String partName = pair[0];
             final String partValue = pair[1];
             switch (partName) {
-                case "t":
-                    dateTime = new QRCodeDateTime(partValue);
-                    break;
-
-                case "s":
+                case "t" -> dateTime = new QRCodeDateTime(partValue);
+                case "s" -> {
                     final DecimalFormatSymbols symbols = new DecimalFormatSymbols();
                     symbols.setDecimalSeparator('.');
                     final DecimalFormat format = new DecimalFormat("###.##", symbols);
                     format.setParseBigDecimal(true);
-
                     final ParsePosition index = new ParsePosition(0);
                     BigDecimal money = ((BigDecimal) format.parseObject(partValue, index))
                             .setScale(2, RoundingMode.HALF_UP);
                     if (index.getIndex() != partValue.length())
                         throw new IllegalArgumentException("Invalid 's' parameter format: " + partValue);
                     totalSum = Money.rubles(money.doubleValue());
-                    break;
-                case "fn":
-                    fiscalDriveNumber = partValue;
-                    break;
-                case "i":
-                    fiscalDocumentNumber = partValue;
-                    break;
-                case "fp":
-                    fiscalSign = new FiscalSign(partValue);
-                    break;
-                case "n":
-                    operationType = ReceiptOperationType.of(Long.parseLong(partValue));
-                    break;
-
-                default:
-                    throw new IllegalArgumentException("Unknown part name " + partName + " with value " + partValue);
+                }
+                case "fn" -> fiscalDriveNumber = partValue;
+                case "i" -> fiscalDocumentNumber = partValue;
+                case "fp" -> fiscalSign = new FiscalSign(partValue);
+                case "n" -> operationType = ReceiptOperationType.of(Long.parseLong(partValue));
+                default ->
+                        throw new IllegalArgumentException("Unknown part name " + partName + " with value " + partValue);
             }
         }
     }

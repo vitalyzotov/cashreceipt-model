@@ -1,6 +1,6 @@
 package ru.vzotov.cashreceipt.domain.model;
 
-import org.apache.commons.lang.Validate;
+import org.apache.commons.lang3.Validate;
 import ru.vzotov.ddd.shared.DomainEvent;
 
 import java.util.Objects;
