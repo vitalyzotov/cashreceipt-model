@@ -8,9 +8,7 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 public class AddressTest {
     @Test
     public void testConstructor() {
-        assertThatThrownBy(() -> {
-            new Address(null);
-        }).as("Should not accept null arguments")
+        assertThatThrownBy(() -> new Address(null)).as("Should not accept null arguments")
                 .isInstanceOf(NullPointerException.class);
 
 

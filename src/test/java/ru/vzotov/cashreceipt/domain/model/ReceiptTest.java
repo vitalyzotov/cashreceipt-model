@@ -20,10 +20,8 @@ public class ReceiptTest {
 
     @Test
     public void testConstructor() {
-        assertThatThrownBy(() -> {
-            new Receipt(null, null, null, null, null, null, null, null, null, null);
-        }).as("Should not accept null arguments")
-                .isInstanceOf(Exception.class);
+        assertThatThrownBy(() -> new Receipt(null, null, null, null, null, null, null, null, null, null))
+                .as("Should not accept null arguments").isInstanceOf(Exception.class);
     }
 
     @Test

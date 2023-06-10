@@ -8,15 +8,11 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 public class QRCodeTest {
     @Test
     public void testConstructor() {
-        assertThatThrownBy(() -> {
-            new QRCode(null, null, null);
-        }).as("Should not accept null arguments")
-                .isInstanceOf(Exception.class);
+        assertThatThrownBy(() -> new QRCode(null, null, null))
+                .as("Should not accept null arguments").isInstanceOf(Exception.class);
 
-        assertThatThrownBy(() -> {
-            new QRCode(null, null, null);
-        }).as("Should not accept null arguments")
-                .isInstanceOf(Exception.class);
+        assertThatThrownBy(() -> new QRCode(null, null, null))
+                .as("Should not accept null arguments").isInstanceOf(Exception.class);
 
         new QRCode(
                 new ReceiptId("id"),

@@ -9,10 +9,8 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 public class RetailPlaceTest {
     @Test
     public void testConstructor() {
-        assertThatThrownBy(() -> {
-            new RetailPlace(null, null, null, null);
-        }).as("Should not accept null arguments for userInn")
-                .isInstanceOf(Exception.class);
+        assertThatThrownBy(() -> new RetailPlace(null, null, null, null))
+                .as("Should not accept null arguments for userInn").isInstanceOf(Exception.class);
 
         RetailPlace place = new RetailPlace(null, new Inn("2310031475"), null, null);
         assertThat(place.address()).isNull();

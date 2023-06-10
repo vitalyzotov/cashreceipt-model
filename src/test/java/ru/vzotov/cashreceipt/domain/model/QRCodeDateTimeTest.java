@@ -11,15 +11,11 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 public class QRCodeDateTimeTest {
     @Test
     public void testConstructor() {
-        assertThatThrownBy(() -> {
-            new QRCodeDateTime((String) null);
-        }).as("Should not accept null arguments")
-                .isInstanceOf(Exception.class);
+        assertThatThrownBy(() -> new QRCodeDateTime((String) null))
+                .as("Should not accept null arguments").isInstanceOf(Exception.class);
 
-        assertThatThrownBy(() -> {
-            new QRCodeDateTime((LocalDateTime) null);
-        }).as("Should not accept null arguments")
-                .isInstanceOf(Exception.class);
+        assertThatThrownBy(() -> new QRCodeDateTime((LocalDateTime) null))
+                .as("Should not accept null arguments").isInstanceOf(Exception.class);
 
         QRCodeDateTime fromString = new QRCodeDateTime("20180123T0821");
         QRCodeDateTime fromDate = new QRCodeDateTime(LocalDateTime.of(2018, Month.JANUARY, 23, 8, 21, 0, 0));
@@ -34,7 +30,7 @@ public class QRCodeDateTimeTest {
 
     @Test
     public void testToStringWithoutSeconds() {
-        QRCodeDateTime fromDate = new QRCodeDateTime(LocalDateTime.of(2018, Month.JANUARY, 23, 8, 21, 00, 0));
+        QRCodeDateTime fromDate = new QRCodeDateTime(LocalDateTime.of(2018, Month.JANUARY, 23, 8, 21, 0, 0));
         assertThat(fromDate.toString()).isEqualTo("20180123T0821");
     }
 

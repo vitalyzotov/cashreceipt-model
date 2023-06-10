@@ -12,10 +12,8 @@ public class PurchaseCategoryTest {
 
     @Test
     public void testConstructor() {
-        assertThatThrownBy(() -> {
-            new PurchaseCategory(null, null, null);
-        }).as("Should not accept null arguments")
-                .isInstanceOf(Exception.class);
+        assertThatThrownBy(() -> new PurchaseCategory(null, null, null))
+                .as("Should not accept null arguments").isInstanceOf(Exception.class);
 
         PurchaseCategory category = new PurchaseCategory(PurchaseCategoryId.nextId(), PERSON_ID, "Продукты");
         assertThat(category.name()).isEqualTo("Продукты");

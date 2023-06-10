@@ -13,10 +13,8 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 public class QRCodeDataTest {
     @Test
     public void testConstructor() {
-        assertThatThrownBy(() -> {
-            new QRCodeData(null);
-        }).as("Should not accept null arguments")
-                .isInstanceOf(Exception.class);
+        assertThatThrownBy(() -> new QRCodeData(null))
+                .as("Should not accept null arguments").isInstanceOf(Exception.class);
 
         QRCodeData qr = new QRCodeData("t=20150720T1638&s=9999999.00&fn=000110000105&i=12345678&fp=123456&n=2");
         assertThat(qr.fiscalDocumentNumber()).isEqualTo("12345678");
@@ -26,15 +24,11 @@ public class QRCodeDataTest {
         assertThat(qr.totalSum()).isEqualTo(Money.kopecks(999999900L));
         assertThat(qr.dateTime().value()).isEqualTo(LocalDateTime.of(2015, Month.JULY, 20, 16, 38, 0, 0));
 
-        assertThatThrownBy(() -> {
-            new QRCodeData("t=20150720T1638&s=9999999.00&fn=000110000105&i=12345678&fp=123456&n=2&abc=unknown");
-        }).as("Should not accept unknown parameters")
-                .isInstanceOf(Exception.class);
+        assertThatThrownBy(() -> new QRCodeData("t=20150720T1638&s=9999999.00&fn=000110000105&i=12345678&fp=123456&n=2&abc=unknown"))
+                .as("Should not accept unknown parameters").isInstanceOf(Exception.class);
 
-        assertThatThrownBy(() -> {
-            new QRCodeData("t=20150720T1638&s=9999A99.00&fn=000110000105&i=12345678&fp=123456&n=2");
-        }).as("Should not accept invalid numbers")
-                .isInstanceOf(Exception.class);
+        assertThatThrownBy(() -> new QRCodeData("t=20150720T1638&s=9999A99.00&fn=000110000105&i=12345678&fp=123456&n=2"))
+                .as("Should not accept invalid numbers").isInstanceOf(Exception.class);
     }
 
     @Test

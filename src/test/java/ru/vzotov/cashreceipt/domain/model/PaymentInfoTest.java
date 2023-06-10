@@ -9,10 +9,8 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 public class PaymentInfoTest {
     @Test
     public void testConstructor() {
-        assertThatThrownBy(() -> {
-            new PaymentInfo(null, null);
-        }).as("Should not accept both null arguments")
-                .isInstanceOf(Exception.class);
+        assertThatThrownBy(() -> new PaymentInfo(null, null))
+                .as("Should not accept both null arguments").isInstanceOf(Exception.class);
 
         new PaymentInfo(Money.kopecks(0), null);
         new PaymentInfo(null, Money.kopecks(0));

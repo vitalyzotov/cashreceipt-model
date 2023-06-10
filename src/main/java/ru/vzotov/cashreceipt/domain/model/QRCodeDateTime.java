@@ -17,7 +17,7 @@ import static java.time.temporal.ChronoField.YEAR;
 
 public class QRCodeDateTime implements ValueObject<QRCodeDateTime> {
 
-    private static DateTimeFormatter QRCODE_DATE_FORMAT = new DateTimeFormatterBuilder()
+    private static final DateTimeFormatter QRCODE_DATE_FORMAT = new DateTimeFormatterBuilder()
             .parseCaseInsensitive()
             .appendValue(YEAR, 4)
             .appendValue(MONTH_OF_YEAR, 2)
@@ -30,7 +30,7 @@ public class QRCodeDateTime implements ValueObject<QRCodeDateTime> {
             .optionalEnd()
             .toFormatter();
 
-    private static DateTimeFormatter QRCODE_DATE_FORMAT_SHORT = new DateTimeFormatterBuilder()
+    private static final DateTimeFormatter QRCODE_DATE_FORMAT_SHORT = new DateTimeFormatterBuilder()
             .parseCaseInsensitive()
             .appendValue(YEAR, 4)
             .appendValue(MONTH_OF_YEAR, 2)
@@ -40,7 +40,7 @@ public class QRCodeDateTime implements ValueObject<QRCodeDateTime> {
             .appendValue(MINUTE_OF_HOUR, 2)
             .toFormatter();
 
-    private static DateTimeFormatter QRCODE_ISO_FORMAT = new DateTimeFormatterBuilder()
+    private static final DateTimeFormatter QRCODE_ISO_FORMAT = new DateTimeFormatterBuilder()
             .parseCaseInsensitive()
             .appendValue(YEAR, 4)
             .appendLiteral('-')
